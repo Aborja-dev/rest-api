@@ -1,0 +1,32 @@
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+      "title": "Ice Age",
+      "year": 1994,
+      "director": "Robert Zemeckis",
+      "duration": 142,
+      "poster": "https://m.media-amazon.com/images/M/MV5BYThjM2MwZGMtMzg3Ny00NGRkLWFmNTAtYTJlMjFhNGUxZDFmXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_UX182_CR0,0,182,268_AL_.jpg",
+      "genre": [
+        "Drama",
+        "Romance"
+      ],
+      "rate": 8.8
+    }
+
+
+### bad post request
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+      "year": "1994",
+      "director": 7,
+      "duration": 5000,
+      "poster": "https://m.media-amazon.com/images/M/MV5BYThjM2MwZGMtMzg3Ny00NGRkLWFmNTAtYTJlMjFhNGUxZDFmXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_UX182_CR0,0,182,268_AL_.pdf",
+      "genre": [
+        "Pepito",
+        "Romance"
+      ],
+      "rate": 8.8
+    }
