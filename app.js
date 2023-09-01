@@ -66,6 +66,18 @@ app.patch('/movies/:id', (req, res) => {
   movies[movieIndex] = updated
   res.status(200).json(movies)
 })
+app.delete('/movies/:id', (req, res) => {
+  const { id } = req.params
+  const elementIndex = movies.findIndex(element => element.id == id)
+  // Si el elemento se encuentra, borrarlo.
+  if (elementIndex !== -1) {
+    movies.splice(elementIndex, 1)
+    return res.status(200).json({ success: true, message: 'Element deleted successfully' })
+  // Si no se encuentra el elemento, devolver un error 400
+  } else {
+    return res.status(400).json({ success: false, message: 'Element not found' })
+  }
+})
 app.use((req, res) => {
   res.status(404).send('<h1>404 page not found</h1>')
 })
