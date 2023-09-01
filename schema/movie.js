@@ -13,7 +13,9 @@ const movieSchema = z.object({
 })
 
 const validateMovie = (input) => movieSchema.safeParse(input)
+const validatePartialMovie = (input) => movieSchema.partial().safeParse(input)
 
 module.exports = {
-  validateMovie
+  validateMovie,
+  validatePartialMovie
 }

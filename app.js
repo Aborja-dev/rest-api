@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const crypto = require('node:crypto')
 const movies = require('./data/movies.json')
-const { validateMovie } = require('./schema/movie')
+const { validateMovie, validatePartialMovie } = require('./schema/movie')
 app.use(express.json())
 app.disable('x-powered-by')
 /*
@@ -46,6 +46,25 @@ app.post('/movies', (req, res) => {
 
   movies.push(newMovie)
   res.status(200).json({ movies })
+})
+app.patch('/movies/:id', (req, res) => {
+  const { id } = req.params
+  const { title, duration, director, year } = req.body
+  const result = validatePartialMovie({ title, duration, director, year })
+  if (!result.success) {
+    res.status(400).json({ error: result.error })
+  }
+  const movieIndex = movies.findIndex(m => m.id == id
+  )
+  if (movieIndex === -1) {
+    return res.status(404).end()
+  }
+  const updated = {
+    ...movies[movieIndex],
+    ...result.data
+  }
+  movies[movieIndex] = updated
+  res.status(200).json(movies)
 })
 app.use((req, res) => {
   res.status(404).send('<h1>404 page not found</h1>')

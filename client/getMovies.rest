@@ -7,3 +7,14 @@ GET http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 
 ### Filter movies by genre
 GET http://localhost:3000/movies?genre=action
+
+### patch movie
+PATCH http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+Content-Type: application/json
+
+{
+    "rate": 1,
+    "title": "Django Unchained",
+    "year": 2000,
+    "director": "Tim Burton"
+}
