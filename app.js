@@ -1,16 +1,25 @@
 /* eslint-disable eqeqeq */
 const express = require('express')
-const app = express()
 const crypto = require('node:crypto')
+const cors = require('cors')
+const app = express()
 const movies = require('./data/movies.json')
 const { validateMovie, validatePartialMovie } = require('./schema/movie')
+const ACCEPTED_ORIGINS = ['http://localhost:8081']
 app.use(express.json())
+app.use(cors({
+  origin: (origin, callback) => {
+    if (ACCEPTED_ORIGINS.includes(origin)) {
+      return callback(null, true)
+    }
+    if (!origin) {
+      return callback(null, true)
+    }
+    return callback(new Error('Unathorized'))
+  }
+}))
 app.disable('x-powered-by')
-/*
-(req, res) => {
-    res.status(200).json()
-}
-*/
+
 app.get('/', (req, res) => {
   res.status(200).send('<h1>Mi REST API con Express</h1>')
 })
@@ -22,7 +31,7 @@ app.get('/movies', (req, res) => {
     })
     res.status(200).json({ movies: filteredMovies })
   }
-  res.status(200).json({ movies })
+  res.status(200).json(movies)
 })
 app.get('/movies/:id', (req, res) => {
   const { id } = req.params
