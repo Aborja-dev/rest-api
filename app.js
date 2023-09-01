@@ -90,7 +90,7 @@ app.delete('/movies/:id', (req, res) => {
 app.use((req, res) => {
   res.status(404).send('<h1>404 page not found</h1>')
 })
-const PORT = process.env.port ?? 3000
+const PORT = process.env.PORT ?? 3000
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)
 })
